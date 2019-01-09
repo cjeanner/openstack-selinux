@@ -1,7 +1,11 @@
 policy_module(os-podman, 1.0)
 gen_require(`
         type container_t;
+        class netlink_tcpdiag_socket { nlmsg_read };
 ')
 #============= container_t ==============
 miscfiles_read_generic_certs(container_t)
 openvswitch_stream_connect(container_t)
+
+# Launchpad 1810512
+allow container_t self:netlink_tcpdiag_socket { nlmsg_read };
